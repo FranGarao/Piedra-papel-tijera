@@ -26,22 +26,31 @@ tijeraBtn.addEventListener("click", () => {
 });
 
 function play(userOption) {
-  const machineOption = calcMachineOption();
-  const result = calcResult(userOption, machineOption);
-
   userImg.src = "./multimedia/" + userOption + ".jpeg";
-  machineImg.src = "./multimedia/" + machineOption + ".jpeg";
-  switch (result) {
-    case empate:
-      resultText.innerHTML = "EMPATASTE!";
-      break;
-    case perder:
-      resultText.innerHTML = "PERDISTE!";
-      break;
-    case ganar:
-      resultText.innerHTML = "GANASTE!";
-      break;
-  }
+  resultText.innerHTML = "ELIGIENDO...";
+  const interval = setInterval(function () {
+    const machineOption = calcMachineOption();
+    machineImg.src = "./multimedia/" + machineOption + ".jpeg";
+  }, 100);
+  setTimeout(function () {
+    clearInterval(interval);
+
+    const machineOption = calcMachineOption();
+    const result = calcResult(userOption, machineOption);
+
+    machineImg.src = "./multimedia/" + machineOption + ".jpeg";
+    switch (result) {
+      case empate:
+        resultText.innerHTML = "EMPATASTE!";
+        break;
+      case perder:
+        resultText.innerHTML = "PERDISTE!";
+        break;
+      case ganar:
+        resultText.innerHTML = "GANASTE!";
+        break;
+    }
+  }, 2000);
 }
 
 function calcMachineOption(params) {
